@@ -13,7 +13,7 @@ import lombok.Data;
 public class PaymentForm {
 	@NotNull
 	private Double valueOfPayment;
-	@Future
+	@NotNull @Future
 	private LocalDate dataPagamento;
 	
 	public Payment converter() {
