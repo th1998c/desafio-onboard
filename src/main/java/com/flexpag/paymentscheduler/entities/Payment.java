@@ -29,14 +29,13 @@ public class Payment implements Serializable {
 	private Double valueOfPayment;
 	private LocalDate dataPagamento;
 	@NonNull
-	private PaymentStatus status;
+	private PaymentStatus status = PaymentStatus.PENDING;
 
 	public Payment() {
 
 	}
 
-	public Payment(Long id, Double valueOfPayment, LocalDate dataPagamento) {
-		this.id = id;
+	public Payment(Double valueOfPayment, LocalDate dataPagamento) {
 		this.valueOfPayment = valueOfPayment;
 		this.dataPagamento = dataPagamento;
 		this.status = PaymentStatus.PENDING;
