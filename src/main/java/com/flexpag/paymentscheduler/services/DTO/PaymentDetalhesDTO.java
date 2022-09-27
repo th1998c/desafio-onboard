@@ -2,8 +2,9 @@ package com.flexpag.paymentscheduler.services.DTO;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.List;
 import java.util.stream.Collectors;
+
+import org.springframework.data.domain.Page;
 
 import com.flexpag.paymentscheduler.entities.Payment;
 import com.flexpag.paymentscheduler.enums.PaymentStatus;
@@ -28,8 +29,8 @@ public class PaymentDetalhesDTO {
 	}
 
 	
-	public static List<PaymentDetalhesDTO> converter(List<Payment> payment) {
-		return payment.stream().map(PaymentDetalhesDTO::new).collect(Collectors.toList());
+	public static Page<PaymentDetalhesDTO> converter(Page<Payment> payment) {
+		return payment.map(PaymentDetalhesDTO::new);
 	}
 	
 }

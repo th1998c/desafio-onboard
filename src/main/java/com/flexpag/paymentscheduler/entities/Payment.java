@@ -6,6 +6,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -30,7 +32,7 @@ public class Payment implements Serializable {
 	private Double valueOfPayment;
 	private LocalDate dataPagamento;
 	private LocalTime horaPagamento;
-	@NonNull
+	@Enumerated(EnumType.STRING)
 	private PaymentStatus status = PaymentStatus.PENDING;
 
 	public Payment() {

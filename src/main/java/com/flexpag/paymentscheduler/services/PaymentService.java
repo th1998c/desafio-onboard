@@ -1,10 +1,11 @@
 package com.flexpag.paymentscheduler.services;
 
 import java.net.URI;
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -24,8 +25,11 @@ public class PaymentService {
 	@Autowired
 	private PaymentRepository paymentRepository;
 	
-	public List<PaymentDetalhesDTO> findAll(){
-		return PaymentDetalhesDTO.converter(paymentRepository.findAll());
+	public Page<PaymentDetalhesDTO> findAll(PaymentStatus status, Pageable paginacao){
+		if(status == null) {
+			return PaymentDetalhesDTO.converter(paymentRepository.findAll(paginacao));
+		}
+		return PaymentDetalhesDTO.converter(paymentRepository.findByStatus(status, paginacao));
 	}
 	
 	public ResponseEntity<PaymentDetalhesDTO> findPaymentById(Long id) {
@@ -33,7 +37,7 @@ public class PaymentService {
 		if (payment.isPresent()) {
 			return ResponseEntity.ok(new PaymentDetalhesDTO(payment.get()));
 		}
-		return ResponseEntity.notFound().build();	
+		return ResponseEntity.notFound().build();
 	}
 	
 	public ResponseEntity<PaymentDTO> createPayment(PaymentForm form, UriComponentsBuilder uriBuilder) {
