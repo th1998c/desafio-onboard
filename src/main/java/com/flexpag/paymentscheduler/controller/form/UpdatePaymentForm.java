@@ -1,4 +1,4 @@
-package com.flexpag.paymentscheduler.resources.form;
+package com.flexpag.paymentscheduler.controller.form;
 
 import java.time.LocalDate;
 import java.time.LocalTime;

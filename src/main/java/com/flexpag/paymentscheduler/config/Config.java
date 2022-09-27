@@ -42,7 +42,8 @@ public class Config implements CommandLineRunner {
 		payment13.setStatus(PaymentStatus.PAID);
 		payment14.setStatus(PaymentStatus.PAID);
 
-		paymentRepository.saveAll(Arrays.asList(payment1, payment2, payment3, payment4, payment5, payment6, payment7, payment8, payment9, 		payment10, payment11, payment12, payment13, payment14, payment15));
+		paymentRepository.saveAll(Arrays.asList(payment1, payment2, payment3, payment4, payment5, payment6, payment7, payment8, payment9,
+												payment10, payment11, payment12, payment13, payment14, payment15));
 	}
 
 }

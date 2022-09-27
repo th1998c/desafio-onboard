@@ -1,4 +1,4 @@
-package com.flexpag.paymentscheduler.resources.DTO;
+package com.flexpag.paymentscheduler.controller.DTO;
 
 import java.io.Serializable;
 import java.time.Instant;

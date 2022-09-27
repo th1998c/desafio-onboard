@@ -1,4 +1,4 @@
-package com.flexpag.paymentscheduler.resources.exception;
+package com.flexpag.paymentscheduler.controller.exception;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.flexpag.paymentscheduler.resources.DTO.ErroExceptionDTO;
-import com.flexpag.paymentscheduler.resources.DTO.ErroFormDTO;
+import com.flexpag.paymentscheduler.controller.DTO.ErroExceptionDTO;
+import com.flexpag.paymentscheduler.controller.DTO.ErroFormDTO;
 import com.flexpag.paymentscheduler.services.exceptions.ResourceAccessDenied;
 
 

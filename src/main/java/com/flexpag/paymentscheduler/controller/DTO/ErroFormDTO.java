@@ -1,15 +1,15 @@
-package com.flexpag.paymentscheduler.resources.DTO;
+package com.flexpag.paymentscheduler.controller.DTO;
 
 import lombok.Data;
 
 @Data
 public class ErroFormDTO {
 	
-	private String path;
+	private String campo;
 	private String erro;
 	
 	public ErroFormDTO(String campo, String erro) {
-		this.path = campo;
+		this.campo = campo;
 		this.erro = erro;
 	}
 
