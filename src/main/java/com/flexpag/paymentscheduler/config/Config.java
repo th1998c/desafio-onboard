@@ -1,7 +1,9 @@
 package com.flexpag.paymentscheduler.config;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,21 +22,23 @@ public class Config implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		Payment payment1 = new Payment(50.00, LocalDate.of(2022, 05, 05), LocalTime.of(04, 30));
-		Payment payment2 = new Payment(120.00, LocalDate.of(2023, 05, 12), LocalTime.of(04, 30));
-		Payment payment3 = new Payment(100.00, LocalDate.of(2022, 04, 15), LocalTime.of(04, 30));
-		Payment payment4 = new Payment(50.00, LocalDate.of(2022, 05, 05), LocalTime.of(04, 30));
-		Payment payment5 = new Payment(120.00, LocalDate.of(2023, 03, 12), LocalTime.of(04, 30));
-		Payment payment6 = new Payment(100.00, LocalDate.of(2022, 11, 15), LocalTime.of(04, 30));
-		Payment payment7 = new Payment(50.00, LocalDate.of(2022, 05, 05), LocalTime.of(04, 30));
-		Payment payment8 = new Payment(120.00, LocalDate.of(2023, 9, 12), LocalTime.of(04, 30));
-		Payment payment9 = new Payment(100.00, LocalDate.of(2024, 11, 15), LocalTime.of(04, 30));
-		Payment payment10 = new Payment(50.00, LocalDate.of(2022, 05, 03), LocalTime.of(04, 30));
-		Payment payment11 = new Payment(120.00, LocalDate.of(2022, 05, 12), LocalTime.of(04, 30));
-		Payment payment12 = new Payment(100.00, LocalDate.of(2022, 07, 15), LocalTime.of(04, 30));
-		Payment payment13 = new Payment(50.00, LocalDate.of(2022, 12, 05), LocalTime.of(04, 30));
-		Payment payment14 = new Payment(120.00, LocalDate.of(2022, 03, 12), LocalTime.of(04, 30));
-		Payment payment15 = new Payment(100.00, LocalDate.of(2022, 11, 15), LocalTime.of(04, 30));
+		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		Payment payment1 = new Payment(50.00, LocalDateTime.parse("2022-09-30 11:00", formatter));
+		Payment payment2 = new Payment(120.00, LocalDateTime.parse("2022-09-30 11:00", formatter));
+		Payment payment3 = new Payment(100.00, LocalDateTime.parse("2022-09-30 11:00", formatter));
+		Payment payment4 = new Payment(50.00, LocalDateTime.parse("2022-09-30 11:00", formatter));
+		Payment payment5 = new Payment(120.00, LocalDateTime.parse("2022-09-30 11:00", formatter));
+		Payment payment6 = new Payment(100.00, LocalDateTime.parse("2022-09-30 11:00", formatter));
+		Payment payment7 = new Payment(50.00, LocalDateTime.parse("2022-10-30 11:00", formatter));
+		Payment payment8 = new Payment(120.00, LocalDateTime.parse("2022-10-30 11:00", formatter));
+		Payment payment9 = new Payment(100.00, LocalDateTime.parse("2022-11-30 11:00", formatter));
+		Payment payment10 = new Payment(50.00, LocalDateTime.parse("2022-09-30 11:00", formatter));
+		Payment payment11 = new Payment(120.00, LocalDateTime.parse("2022-12-30 11:00", formatter));
+		Payment payment12 = new Payment(100.00, LocalDateTime.parse("2022-10-30 11:00", formatter));
+		Payment payment13 = new Payment(50.00, LocalDateTime.parse("2022-09-30 11:00", formatter));
+		Payment payment14 = new Payment(120.00, LocalDateTime.parse("2022-11-30 11:00", formatter));
+		Payment payment15 = new Payment(100.00, LocalDateTime.parse("2022-12-30 11:00", formatter));
 		
 		payment2.setStatus(PaymentStatus.PAID);
 		payment12.setStatus(PaymentStatus.PAID);

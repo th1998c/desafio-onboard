@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.flexpag.paymentscheduler.controller.DTO.ErroExceptionDTO;
 import com.flexpag.paymentscheduler.controller.DTO.ErroFormDTO;
+import com.flexpag.paymentscheduler.services.exceptions.InvalidDateException;
 import com.flexpag.paymentscheduler.services.exceptions.ResourceAccessDenied;
 
 
@@ -71,6 +72,15 @@ public class ExceptionHandle{
 		ErroExceptionDTO err = new ErroExceptionDTO(Instant.now(), status.value(), error, e.getMessage(), request.getRequestURI());
 		return ResponseEntity.status(status).body(err);
 	}
-
+	
+	
+	@ExceptionHandler(InvalidDateException.class)
+	public ResponseEntity<ErroExceptionDTO> invalidDateException(InvalidDateException e, HttpServletRequest request){
+		String error = "invalid data";
+		HttpStatus status = HttpStatus.BAD_REQUEST;
+		ErroExceptionDTO err = new ErroExceptionDTO(Instant.now(), status.value(), error, e.getMessage(), request.getRequestURI());
+		return ResponseEntity.status(status).body(err);
+	}
+	
 	
 }

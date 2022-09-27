@@ -16,6 +16,7 @@ import com.flexpag.paymentscheduler.model.enums.PaymentStatus;
 import com.flexpag.paymentscheduler.repositories.PaymentRepository;
 import com.flexpag.paymentscheduler.services.DTO.PaymentDTO;
 import com.flexpag.paymentscheduler.services.DTO.PaymentDetalhesDTO;
+import com.flexpag.paymentscheduler.services.exceptions.InvalidDateException;
 import com.flexpag.paymentscheduler.services.exceptions.ResourceAccessDenied;
 import com.flexpag.paymentscheduler.services.form.PaymentForm;
 
@@ -52,6 +53,10 @@ public class PaymentService {
 		Optional<Payment> payment = paymentRepository.findById(id);
 		if (payment.get().getStatus().equals(PaymentStatus.PAID)) {
 			throw new ResourceAccessDenied(id);
+		}
+		
+		if (payment.get().getPaymentDate().isBefore(form.getPaymentDate())){
+			throw new InvalidDateException(id);
 		}
 		
 		Payment paymentOld = form.atualizar(id, paymentRepository);

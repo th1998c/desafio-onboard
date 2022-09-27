@@ -1,8 +1,7 @@
 package com.flexpag.paymentscheduler.model.entities;
 
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -11,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.flexpag.paymentscheduler.model.enums.PaymentStatus;
 
 import lombok.Data;
@@ -24,9 +24,9 @@ public class Payment implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private Double valueOfPayment;
-	private LocalDate dataPagamento;
-	private LocalTime horaPagamento;
+    private Double paymentValue;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm", timezone="GMT-3")
+    private LocalDateTime paymentDate;
 	@Enumerated(EnumType.STRING)
 	private PaymentStatus status = PaymentStatus.PENDING;
 
@@ -34,10 +34,9 @@ public class Payment implements Serializable {
 
 	}
 
-	public Payment(Double valueOfPayment, LocalDate dataPagamento, LocalTime horaPagamento) {
-		this.valueOfPayment = valueOfPayment;
-		this.dataPagamento = dataPagamento;
-		this.horaPagamento = horaPagamento;
+	public Payment(Double paymentValue, LocalDateTime paymentDate) {
+		this.paymentValue = paymentValue;
+		this.paymentDate = paymentDate;
 		this.status = PaymentStatus.PENDING;
 	}
 

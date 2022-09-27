@@ -1,7 +1,6 @@
 package com.flexpag.paymentscheduler.services.DTO;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 import org.springframework.data.domain.Page;
 
@@ -14,17 +13,15 @@ import lombok.Getter;
 public class PaymentDetalhesDTO {
 	
 	private Long id;
-	private Double valueOfPayment;
-	private LocalDate dataPagamento;
-	private LocalTime horaPagamento;
+    private Double paymentValue;
+    private LocalDateTime paymentDate;
 	private PaymentStatus status;
 	
 	public PaymentDetalhesDTO(Payment payment) {
 		this.id = payment.getId();
-		this.valueOfPayment = payment.getValueOfPayment();
-		this.dataPagamento = payment.getDataPagamento();
+		this.paymentValue = payment.getPaymentValue();
+		this.paymentDate = payment.getPaymentDate();
 		this.status = payment.getStatus();
-		this.horaPagamento = payment.getHoraPagamento();
 	}
 
 	
