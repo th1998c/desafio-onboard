@@ -3,7 +3,7 @@ package com.flexpag.paymentscheduler.services.DTO;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.flexpag.paymentscheduler.entities.Payment;
+import com.flexpag.paymentscheduler.model.entities.Payment;
 
 import lombok.Getter;
 

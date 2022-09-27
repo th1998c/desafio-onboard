@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 
-import com.flexpag.paymentscheduler.entities.Payment;
-import com.flexpag.paymentscheduler.enums.PaymentStatus;
+import com.flexpag.paymentscheduler.model.entities.Payment;
+import com.flexpag.paymentscheduler.model.enums.PaymentStatus;
 import com.flexpag.paymentscheduler.repositories.PaymentRepository;
 
 @Configuration

@@ -7,7 +7,7 @@ import java.util.Optional;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 
-import com.flexpag.paymentscheduler.entities.Payment;
+import com.flexpag.paymentscheduler.model.entities.Payment;
 import com.flexpag.paymentscheduler.repositories.PaymentRepository;
 
 import lombok.Data;

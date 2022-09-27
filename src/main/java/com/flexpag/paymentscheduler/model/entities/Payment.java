@@ -1,7 +1,6 @@
-package com.flexpag.paymentscheduler.entities;
+package com.flexpag.paymentscheduler.model.entities;
 
 import java.io.Serializable;
-import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -12,13 +11,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.flexpag.paymentscheduler.enums.PaymentStatus;
+import com.flexpag.paymentscheduler.model.enums.PaymentStatus;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.Setter;
 
 @Data
 @Entity

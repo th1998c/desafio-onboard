@@ -2,12 +2,11 @@ package com.flexpag.paymentscheduler.services.DTO;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Page;
 
-import com.flexpag.paymentscheduler.entities.Payment;
-import com.flexpag.paymentscheduler.enums.PaymentStatus;
+import com.flexpag.paymentscheduler.model.entities.Payment;
+import com.flexpag.paymentscheduler.model.enums.PaymentStatus;
 
 import lombok.Getter;
 

@@ -10,8 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.flexpag.paymentscheduler.entities.Payment;
-import com.flexpag.paymentscheduler.enums.PaymentStatus;
+import com.flexpag.paymentscheduler.model.entities.Payment;
+import com.flexpag.paymentscheduler.model.enums.PaymentStatus;
 import com.flexpag.paymentscheduler.repositories.PaymentRepository;
 import com.flexpag.paymentscheduler.resources.form.UpdatePaymentForm;
 import com.flexpag.paymentscheduler.services.DTO.PaymentDTO;

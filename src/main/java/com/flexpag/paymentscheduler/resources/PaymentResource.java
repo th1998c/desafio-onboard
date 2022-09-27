@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.flexpag.paymentscheduler.enums.PaymentStatus;
+import com.flexpag.paymentscheduler.model.enums.PaymentStatus;
 import com.flexpag.paymentscheduler.resources.form.UpdatePaymentForm;
 import com.flexpag.paymentscheduler.services.PaymentService;
 import com.flexpag.paymentscheduler.services.DTO.PaymentDTO;
