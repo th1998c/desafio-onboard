@@ -3,6 +3,7 @@ package com.flexpag.paymentscheduler.entities;
 import java.io.Serializable;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -28,6 +29,7 @@ public class Payment implements Serializable {
 	private Long id;
 	private Double valueOfPayment;
 	private LocalDate dataPagamento;
+	private LocalTime horaPagamento;
 	@NonNull
 	private PaymentStatus status = PaymentStatus.PENDING;
 
@@ -35,9 +37,10 @@ public class Payment implements Serializable {
 
 	}
 
-	public Payment(Double valueOfPayment, LocalDate dataPagamento) {
+	public Payment(Double valueOfPayment, LocalDate dataPagamento, LocalTime horaPagamento) {
 		this.valueOfPayment = valueOfPayment;
 		this.dataPagamento = dataPagamento;
+		this.horaPagamento = horaPagamento;
 		this.status = PaymentStatus.PENDING;
 	}
 

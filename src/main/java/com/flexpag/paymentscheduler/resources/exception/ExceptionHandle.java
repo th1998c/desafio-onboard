@@ -1,5 +1,6 @@
 package com.flexpag.paymentscheduler.resources.exception;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -18,7 +19,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.flexpag.paymentscheduler.resources.DTO.ErroExceptionDTO;
 import com.flexpag.paymentscheduler.resources.DTO.ErroFormDTO;
+import com.flexpag.paymentscheduler.services.exceptions.ResourceAccessDenied;
 
 
 
@@ -44,21 +47,30 @@ public class ExceptionHandle{
 	}
 	
 	@ExceptionHandler(NoSuchElementException.class)
-	@ResponseStatus(code = HttpStatus.NOT_FOUND)
-	public ResponseEntity<ErroFormDTO> noSuchElementException(NoSuchElementException e, HttpServletRequest request ){
+	public ResponseEntity<ErroExceptionDTO> noSuchElementException(NoSuchElementException e, HttpServletRequest request){
+		String error = "Not found";
 		HttpStatus status = HttpStatus.NOT_FOUND;
-		ErroFormDTO err = new ErroFormDTO(request.getRequestURI(), e.getMessage());
+		ErroExceptionDTO err = new ErroExceptionDTO(Instant.now(), status.value(), error, e.getMessage(), request.getRequestURI());
 		return ResponseEntity.status(status).body(err);
 	}
 	
 	
 	@ExceptionHandler(HttpMessageNotReadableException.class)
-	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
-	public ResponseEntity<ErroFormDTO> httpMessageNotReadableException(HttpMessageNotReadableException e, HttpServletRequest request ){
-		String error = "Dado Inválido";
-		HttpStatus status = HttpStatus.NOT_FOUND;
-		ErroFormDTO err = new ErroFormDTO(request.getRequestURI(),error);
+	public ResponseEntity<ErroExceptionDTO> httpMessageNotReadableException(HttpMessageNotReadableException e, HttpServletRequest request){
+		String error = "invalid data";
+		HttpStatus status = HttpStatus.BAD_REQUEST;
+		ErroExceptionDTO err = new ErroExceptionDTO(Instant.now(), status.value(), error, e.getMessage(), request.getRequestURI());
 		return ResponseEntity.status(status).body(err);
 	}
+	
+	
+	@ExceptionHandler(ResourceAccessDenied.class)
+	public ResponseEntity<ErroExceptionDTO> resourceAccessDenied(ResourceAccessDenied e, HttpServletRequest request){
+		String error = "Access Denied";
+		HttpStatus status = HttpStatus.FORBIDDEN;
+		ErroExceptionDTO err = new ErroExceptionDTO(Instant.now(), status.value(), error, e.getMessage(), request.getRequestURI());
+		return ResponseEntity.status(status).body(err);
+	}
+
 	
 }

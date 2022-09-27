@@ -1,6 +1,7 @@
 package com.flexpag.paymentscheduler.services.DTO;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,6 +16,7 @@ public class PaymentDetalhesDTO {
 	private Long id;
 	private Double valueOfPayment;
 	private LocalDate dataPagamento;
+	private LocalTime horaPagamento;
 	private PaymentStatus status;
 	
 	public PaymentDetalhesDTO(Payment payment) {
@@ -22,6 +24,7 @@ public class PaymentDetalhesDTO {
 		this.valueOfPayment = payment.getValueOfPayment();
 		this.dataPagamento = payment.getDataPagamento();
 		this.status = payment.getStatus();
+		this.horaPagamento = payment.getHoraPagamento();
 	}
 
 	

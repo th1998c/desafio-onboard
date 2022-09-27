@@ -1,6 +1,5 @@
 package com.flexpag.paymentscheduler.resources;
 
-import java.net.URI;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -10,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.flexpag.paymentscheduler.entities.Payment;
 import com.flexpag.paymentscheduler.resources.form.UpdatePaymentForm;
 import com.flexpag.paymentscheduler.services.PaymentService;
 import com.flexpag.paymentscheduler.services.DTO.PaymentDTO;
@@ -45,7 +44,6 @@ public class PaymentResource {
 		return paymentService.findPaymentById(id);
 	}
 	
-	
 	@PostMapping
 	@Transactional
 	@CacheEvict(value = "listaDePagamentos", allEntries = true)
@@ -67,7 +65,11 @@ public class PaymentResource {
 	}
 	
 
-	//delete
+	@DeleteMapping("/{id}")
+	@Transactional
+	public ResponseEntity<PaymentDetalhesDTO> deletePayment(@PathVariable Long id) {
+		return paymentService.delete(id);
+	}
 	
 	
 }

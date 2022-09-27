@@ -15,6 +15,7 @@ import com.flexpag.paymentscheduler.repositories.PaymentRepository;
 import com.flexpag.paymentscheduler.resources.form.UpdatePaymentForm;
 import com.flexpag.paymentscheduler.services.DTO.PaymentDTO;
 import com.flexpag.paymentscheduler.services.DTO.PaymentDetalhesDTO;
+import com.flexpag.paymentscheduler.services.exceptions.ResourceAccessDenied;
 import com.flexpag.paymentscheduler.services.form.PaymentForm;
 
 @Service
@@ -45,12 +46,12 @@ public class PaymentService {
 	
 	public ResponseEntity<PaymentDetalhesDTO> updatePayment(Long id, UpdatePaymentForm form) {
 		Optional<Payment> payment = paymentRepository.findById(id);
-		
-		if (payment.get().getStatus().equals(PaymentStatus.PENDING)) {
-			Payment paymentOld = form.atualizar(id, paymentRepository);
-			return ResponseEntity.ok(new PaymentDetalhesDTO(paymentOld));
+		if (payment.get().getStatus().equals(PaymentStatus.PAID)) {
+			throw new ResourceAccessDenied(id);
 		}
-		return ResponseEntity.status(403).build();
+		
+		Payment paymentOld = form.atualizar(id, paymentRepository);
+		return ResponseEntity.ok(new PaymentDetalhesDTO(paymentOld));
 	}
 
 	public ResponseEntity<PaymentDTO> Pay(Long id) {
@@ -60,6 +61,16 @@ public class PaymentService {
 			return ResponseEntity.ok(new PaymentDTO(payment.get()));
 		}
 		return ResponseEntity.notFound().build();	
+	}
+	
+	public ResponseEntity<PaymentDetalhesDTO> delete(Long id) {
+		Optional<Payment> payment = paymentRepository.findById(id);
+		System.out.println(payment.get().getId());
+		if (payment.get().getStatus().equals(PaymentStatus.PAID)) {
+			throw new ResourceAccessDenied(id);
+		}
+		paymentRepository.deleteById(id);
+		return ResponseEntity.ok().build();
 	}
 
 }
