@@ -22,13 +22,12 @@ public class ScheduledPay {
 	@Scheduled(fixedDelay = 1800000, initialDelay = 1000)
 	@Transactional
 	public void Imprime() {
-		/* buscar lista de pagamentos pendentes de pagamento e que a data passou*/
-	
 		
-	 List<Payment> pagamentos = service.findPending(PaymentStatus.PENDING);
-		
-	 pagamentos.forEach((x) -> {
-		 if(x.getPaymentDate().isBefore(LocalDateTime.now())) { service.Pay(x.getId()); }}
-	 );
+		 List<Payment> pagamentos = service.findPending(PaymentStatus.PENDING);	
+		 pagamentos.forEach((x) -> {
+			 if(x.getPaymentDate().isBefore(LocalDateTime.now())) { service.Pay(x.getId()); }}
+		 );
+		 
 	}
+	
 }

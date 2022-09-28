@@ -9,43 +9,60 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 
 import com.flexpag.paymentscheduler.model.entities.Payment;
+import com.flexpag.paymentscheduler.model.entities.Usuario;
 import com.flexpag.paymentscheduler.model.enums.PaymentStatus;
 import com.flexpag.paymentscheduler.repositories.PaymentRepository;
+import com.flexpag.paymentscheduler.repositories.UsuarioRepository;
 
 @Configuration
 public class Config implements CommandLineRunner {
 
 	@Autowired
 	private PaymentRepository paymentRepository;
+	
+	@Autowired
+	private UsuarioRepository usuarioRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
 		
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-		Payment payment1 = new Payment(50.00, LocalDateTime.parse("2022-09-27 11:00", formatter));
-		Payment payment2 = new Payment(120.00, LocalDateTime.parse("2022-09-27 11:00", formatter));
-		Payment payment3 = new Payment(100.00, LocalDateTime.parse("2022-09-28 11:00", formatter));
-		Payment payment4 = new Payment(50.00, LocalDateTime.parse("2022-09-30 11:00", formatter));
-		Payment payment5 = new Payment(120.00, LocalDateTime.parse("2022-09-30 11:00", formatter));
-		Payment payment6 = new Payment(100.00, LocalDateTime.parse("2022-09-30 11:00", formatter));
-		Payment payment7 = new Payment(50.00, LocalDateTime.parse("2022-10-30 11:00", formatter));
-		Payment payment8 = new Payment(120.00, LocalDateTime.parse("2022-10-30 11:00", formatter));
-		Payment payment9 = new Payment(100.00, LocalDateTime.parse("2022-11-30 11:00", formatter));
-		Payment payment10 = new Payment(50.00, LocalDateTime.parse("2022-09-30 11:00", formatter));
-		Payment payment11 = new Payment(120.00, LocalDateTime.parse("2022-12-30 11:00", formatter));
-		Payment payment12 = new Payment(100.00, LocalDateTime.parse("2022-10-30 11:00", formatter));
-		Payment payment13 = new Payment(50.00, LocalDateTime.parse("2022-09-30 11:00", formatter));
-		Payment payment14 = new Payment(120.00, LocalDateTime.parse("2022-11-30 11:00", formatter));
-		Payment payment15 = new Payment(100.00, LocalDateTime.parse("2022-12-30 11:00", formatter));
 		
+		Usuario usuario1 = new Usuario("user@email.com", "$2a$10$O3Rkxe5DVBXFteoDUgWN7.Isw8hI5wzyoxnMTuaab40M8Ex34q9gW");
+		
+		Payment payment1 = new Payment(50.00, LocalDateTime.parse("2022-09-27 11:00", formatter), usuario1);
+		Payment payment2 = new Payment(120.00, LocalDateTime.parse("2022-09-27 11:00", formatter), usuario1);
+		Payment payment3 = new Payment(100.00, LocalDateTime.parse("2022-09-28 11:00", formatter), usuario1);
+		Payment payment4 = new Payment(50.00, LocalDateTime.parse("2022-09-30 11:00", formatter), usuario1);
+		Payment payment5 = new Payment(120.00, LocalDateTime.parse("2022-09-30 11:00", formatter), usuario1);
+		Payment payment6 = new Payment(100.00, LocalDateTime.parse("2022-09-30 11:00", formatter), usuario1);
+		Payment payment7 = new Payment(50.00, LocalDateTime.parse("2022-10-30 11:00", formatter), usuario1);
+		Payment payment8 = new Payment(120.00, LocalDateTime.parse("2022-10-30 11:00", formatter), usuario1);
+		Payment payment9 = new Payment(100.00, LocalDateTime.parse("2022-11-30 11:00", formatter), usuario1);
+		Payment payment10 = new Payment(50.00, LocalDateTime.parse("2022-09-30 11:00", formatter), usuario1);
+		Payment payment11 = new Payment(120.00, LocalDateTime.parse("2022-12-30 11:00", formatter), usuario1);
+		Payment payment12 = new Payment(100.00, LocalDateTime.parse("2022-10-30 11:00", formatter), usuario1);
+		Payment payment13 = new Payment(50.00, LocalDateTime.parse("2022-09-30 11:00", formatter), usuario1);
+		Payment payment14 = new Payment(120.00, LocalDateTime.parse("2022-11-30 11:00", formatter), usuario1);
+		Payment payment15 = new Payment(100.00, LocalDateTime.parse("2022-12-30 11:00", formatter), usuario1);
 		payment2.setStatus(PaymentStatus.PAID);
 		payment12.setStatus(PaymentStatus.PAID);
 		payment10.setStatus(PaymentStatus.PAID);
 		payment13.setStatus(PaymentStatus.PAID);
 		payment14.setStatus(PaymentStatus.PAID);
+		
+		usuario1.setPayments(Arrays.asList(payment1, payment2, payment3, payment4, payment5, payment6, payment7, payment8, payment9,
+				payment10, payment11, payment12, payment13, payment14, payment15));
+		
 
+		usuarioRepository.saveAll(Arrays.asList(usuario1));
+		
 		paymentRepository.saveAll(Arrays.asList(payment1, payment2, payment3, payment4, payment5, payment6, payment7, payment8, payment9,
-												payment10, payment11, payment12, payment13, payment14, payment15));
+				payment10, payment11, payment12, payment13, payment14, payment15));
+		
+
+
+
 	}
 
 }
