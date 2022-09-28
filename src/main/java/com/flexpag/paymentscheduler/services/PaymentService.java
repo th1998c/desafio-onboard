@@ -1,6 +1,7 @@
 package com.flexpag.paymentscheduler.services;
 
 import java.net.URI;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,6 +70,12 @@ public class PaymentService {
 			payment.get().setStatus(PaymentStatus.PAID);
 			return ResponseEntity.ok(new PaymentDTO(payment.get()));
 		}
+		
+		if (payment.get().getStatus().equals(PaymentStatus.PAID)) {
+			throw new ResourceAccessDenied(id);
+		}
+		
+		
 		return ResponseEntity.notFound().build();	
 	}
 	
@@ -80,6 +87,10 @@ public class PaymentService {
 		}
 		paymentRepository.deleteById(id);
 		return ResponseEntity.ok().build();
+	}
+
+	public List<Payment> findPending(PaymentStatus pending) {
+		return paymentRepository.findByStatus(pending);
 	}
 
 }

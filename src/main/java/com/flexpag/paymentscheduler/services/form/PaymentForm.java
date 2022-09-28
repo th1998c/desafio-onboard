@@ -2,6 +2,7 @@ package com.flexpag.paymentscheduler.services.form;
 
 import java.time.LocalDateTime;
 
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 
@@ -12,7 +13,7 @@ import lombok.Data;
 
 @Data
 public class PaymentForm {
-	@NotNull
+	@NotNull @DecimalMin("0.01")
 	private Double paymentValue;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm", timezone="GMT-3")
 	@NotNull @Future

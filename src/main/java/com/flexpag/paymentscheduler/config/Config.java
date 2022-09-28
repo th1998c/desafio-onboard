@@ -1,8 +1,6 @@
 package com.flexpag.paymentscheduler.config;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 
@@ -24,9 +22,9 @@ public class Config implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-		Payment payment1 = new Payment(50.00, LocalDateTime.parse("2022-09-30 11:00", formatter));
-		Payment payment2 = new Payment(120.00, LocalDateTime.parse("2022-09-30 11:00", formatter));
-		Payment payment3 = new Payment(100.00, LocalDateTime.parse("2022-09-30 11:00", formatter));
+		Payment payment1 = new Payment(50.00, LocalDateTime.parse("2022-09-27 11:00", formatter));
+		Payment payment2 = new Payment(120.00, LocalDateTime.parse("2022-09-27 11:00", formatter));
+		Payment payment3 = new Payment(100.00, LocalDateTime.parse("2022-09-28 11:00", formatter));
 		Payment payment4 = new Payment(50.00, LocalDateTime.parse("2022-09-30 11:00", formatter));
 		Payment payment5 = new Payment(120.00, LocalDateTime.parse("2022-09-30 11:00", formatter));
 		Payment payment6 = new Payment(100.00, LocalDateTime.parse("2022-09-30 11:00", formatter));

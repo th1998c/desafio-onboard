@@ -18,6 +18,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import com.flexpag.paymentscheduler.controller.DTO.ErroExceptionDTO;
 import com.flexpag.paymentscheduler.controller.DTO.ErroFormDTO;
@@ -46,6 +47,8 @@ public class ExceptionHandle{
 		
 		return errosDto;
 	}
+	
+	
 	
 	@ExceptionHandler(NoSuchElementException.class)
 	public ResponseEntity<ErroExceptionDTO> noSuchElementException(NoSuchElementException e, HttpServletRequest request){
@@ -77,6 +80,15 @@ public class ExceptionHandle{
 	@ExceptionHandler(InvalidDateException.class)
 	public ResponseEntity<ErroExceptionDTO> invalidDateException(InvalidDateException e, HttpServletRequest request){
 		String error = "invalid data";
+		HttpStatus status = HttpStatus.BAD_REQUEST;
+		ErroExceptionDTO err = new ErroExceptionDTO(Instant.now(), status.value(), error, e.getMessage(), request.getRequestURI());
+		return ResponseEntity.status(status).body(err);
+	}
+	
+	
+	@ExceptionHandler(MethodArgumentTypeMismatchException.class)
+	public ResponseEntity<ErroExceptionDTO> noSuchElementException(MethodArgumentTypeMismatchException e, HttpServletRequest request){
+		String error = "Parametro inválido";
 		HttpStatus status = HttpStatus.BAD_REQUEST;
 		ErroExceptionDTO err = new ErroExceptionDTO(Instant.now(), status.value(), error, e.getMessage(), request.getRequestURI());
 		return ResponseEntity.status(status).body(err);
