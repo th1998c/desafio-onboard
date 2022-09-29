@@ -20,8 +20,6 @@ import com.flexpag.paymentscheduler.repositories.UsuarioRepository;
 @Configuration
 public class SecurityConfigurations {
 				
-		@Autowired
-	    private AutenticacaoService autenticacaoService;
 
 	    @Autowired
 	    private TokenService tokenService;
@@ -47,10 +45,21 @@ public class SecurityConfigurations {
             .antMatchers(HttpMethod.GET, "/payments").permitAll()
             .antMatchers(HttpMethod.GET, "/payments/*").permitAll()
             .antMatchers(HttpMethod.POST, "/auth").permitAll()
+            //rotas liberadas para front não precisar usar autenticação
+            .antMatchers(HttpMethod.POST, "/payments").permitAll()
+            .antMatchers(HttpMethod.PUT, "/payments/*").permitAll()
+            .antMatchers(HttpMethod.PATCH, "/payments/*").permitAll()
+            .antMatchers(HttpMethod.DELETE, "/payments/*").permitAll()
+            .antMatchers("/").permitAll()
+            .antMatchers("/h2-console/**").permitAll()
+            //fim das autorizacoes provisorias
             .anyRequest().authenticated()
             .and().csrf().disable()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and().addFilterBefore(new AutenticacaoViaTokenFilter(tokenService, usuarioRepository), UsernamePasswordAuthenticationFilter.class);
+			
+			// 2 alteracao rotas liberadas para front não precisar usar autenticação
+			 http.headers().frameOptions().disable();
 			return http.build();        
 		}
 

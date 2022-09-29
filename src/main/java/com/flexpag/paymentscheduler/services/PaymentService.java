@@ -29,8 +29,10 @@ public class PaymentService {
 	
 	public Page<PaymentDetalhesDTO> findAll(PaymentStatus status, Pageable paginacao){
 		if(status == null) {
+			System.out.println("dentro do if");
 			return PaymentDetalhesDTO.converter(paymentRepository.findAll(paginacao));
 		}
+		System.out.println("fora do if");
 		return PaymentDetalhesDTO.converter(paymentRepository.findByStatus(status, paginacao));
 	}
 	
