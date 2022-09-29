@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.flexpag.paymentscheduler.config.security.TokenService;
+import com.flexpag.paymentscheduler.controller.DTO.TokenDto;
 import com.flexpag.paymentscheduler.controller.form.LoginForm;
 
 @RestController
@@ -27,19 +28,18 @@ public class AutenticacaoController {
 	private TokenService tokenService;
 	
 	@PostMapping
-	public ResponseEntity<?> autenticar(@RequestBody @Valid LoginForm form){
+	public ResponseEntity<TokenDto> autenticar(@RequestBody @Valid LoginForm form){
 		UsernamePasswordAuthenticationToken dadosLogin = form.converter();
 			
 		try {
 			
 			Authentication authentication = authenticationManager.authenticate(dadosLogin);
 			String token = tokenService.gerarToken(authentication);			
-			System.out.println(token);
+			return ResponseEntity.ok(new TokenDto(token, "Bearer"));
+			
 		} catch (AuthenticationException e) {
 			return ResponseEntity.badRequest().build();	
 		}
-		
-		return ResponseEntity.ok().build();
 	}
 	
 }
