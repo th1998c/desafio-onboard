@@ -16,17 +16,15 @@ import com.flexpag.paymentscheduler.model.enums.PaymentStatus;
 @Component
 public class ScheduledPay {
 	
-	
 	@Autowired
 	PaymentService service;
-	@Scheduled(fixedDelay = 1800000, initialDelay = 1000)
+	
+	@Scheduled(fixedDelay = 60000, initialDelay = 1000)
 	@Transactional
-	public void Imprime() {
+	public void RealizaPagamentosAgendados() {
 		
-		 List<Payment> pagamentos = service.findPending(PaymentStatus.PENDING);	
-		 pagamentos.forEach((x) -> {
-			 if(x.getPaymentDate().isBefore(LocalDateTime.now())) { service.Pay(x.getId()); }}
-		 );
+		 List<Payment> pagamentos = service.findStatus(PaymentStatus.PENDING);	
+		 pagamentos.forEach(x -> { if(x.getPaymentDate().isBefore(LocalDateTime.now())) service.pay(x.getId()); });
 		 
 	}
 	

@@ -16,7 +16,6 @@ public class PaymentDTO {
 		this.id = payment.getId();
 	}
 
-	
 	public static List<PaymentDTO> converter(List<Payment> payment) {
 		return payment.stream().map(PaymentDTO::new).collect(Collectors.toList());
 	}

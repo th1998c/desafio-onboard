@@ -8,6 +8,7 @@ spring:
     console:
       enabled: true
       path: /h2-console
+      DB_CLOSE_ON_EXIT: FALSE
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:

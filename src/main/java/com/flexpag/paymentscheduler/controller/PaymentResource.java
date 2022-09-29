@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.flexpag.paymentscheduler.controller.form.UpdatePaymentForm;
+import com.flexpag.paymentscheduler.model.entities.Payment;
 import com.flexpag.paymentscheduler.model.enums.PaymentStatus;
 import com.flexpag.paymentscheduler.services.PaymentService;
 import com.flexpag.paymentscheduler.services.DTO.PaymentDTO;
@@ -39,9 +40,8 @@ public class PaymentResource {
 	
 	@GetMapping
 	@Cacheable(value = "listaDePagamentos")
-	public Page<PaymentDetalhesDTO> findAll(@RequestParam(required = false) PaymentStatus status,
-											@PageableDefault(sort = "id", direction = Direction.ASC, page = 0, size = 10)
-											Pageable paginacao) {
+	public Page<PaymentDetalhesDTO> findAll(@RequestParam(required = false) PaymentStatus status, 
+			@PageableDefault(sort = "id", direction = Direction.ASC, page = 0, size = 10) Pageable paginacao) {
 		return paymentService.findAll(status, paginacao);		
 	}
 	
@@ -61,21 +61,18 @@ public class PaymentResource {
 	@Transactional
 	public ResponseEntity<PaymentDetalhesDTO> updatePayment(@PathVariable Long id, @Valid @RequestBody UpdatePaymentForm form) {
 		return paymentService.updatePayment(id, form);	
-		
 	}
 	
 	@PatchMapping("/{id}")
 	@Transactional
-	public ResponseEntity<PaymentDTO> Pay(@PathVariable Long id) {
-		return paymentService.Pay(id);		
+	public ResponseEntity<PaymentDTO> pay(@PathVariable Long id) {
+		return paymentService.pay(id);		
 	}
 	
-
 	@DeleteMapping("/{id}")
 	@Transactional
-	public ResponseEntity<PaymentDetalhesDTO> deletePayment(@PathVariable Long id) {
+	public ResponseEntity<Payment> deletePayment(@PathVariable Long id) {
 		return paymentService.delete(id);
 	}
-	
 	
 }

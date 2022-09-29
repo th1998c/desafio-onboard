@@ -36,7 +36,6 @@ public class TokenService {
 
 
 	public boolean isTokenValido(String token) {
-		
 		try {
 			Jwts.parser().setSigningKey(this.secret).parseClaimsJws(token);
 			return true;
@@ -45,7 +44,6 @@ public class TokenService {
 		}
 		
 	}
-
 
 	public Long getIdUsuario(String token) {
 		Claims claims = Jwts.parser().setSigningKey(this.secret).parseClaimsJws(token).getBody();

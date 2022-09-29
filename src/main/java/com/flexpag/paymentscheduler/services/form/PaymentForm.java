@@ -21,8 +21,7 @@ public class PaymentForm {
 
 	
 	public Payment converter() {
-		Payment payment = new Payment(this.paymentValue, this.paymentDate);
-		return payment;
+		return new Payment(this.paymentValue, this.paymentDate);
 	}
 	
 }

@@ -24,7 +24,6 @@ public class PaymentDetalhesDTO {
 		this.status = payment.getStatus();
 	}
 
-	
 	public static Page<PaymentDetalhesDTO> converter(Page<Payment> payment) {
 		return payment.map(PaymentDetalhesDTO::new);
 	}

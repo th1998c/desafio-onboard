@@ -27,8 +27,6 @@ import com.flexpag.paymentscheduler.controller.DTO.ErroFormDTO;
 import com.flexpag.paymentscheduler.services.exceptions.InvalidDateException;
 import com.flexpag.paymentscheduler.services.exceptions.ResourceAccessDenied;
 
-
-
 @RestControllerAdvice
 public class ExceptionHandle{
 	
@@ -50,50 +48,38 @@ public class ExceptionHandle{
 		return errosDto;
 	}
 	
-	
-	
 	@ExceptionHandler(NoSuchElementException.class)
 	public ResponseEntity<ErroExceptionDTO> noSuchElementException(NoSuchElementException e, HttpServletRequest request){
 		String error = "Not found";
-		String specificError = e.getLocalizedMessage();
-		System.out.println("campo "+ specificError);
 		HttpStatus status = HttpStatus.NOT_FOUND;
-		ErroExceptionDTO err = new ErroExceptionDTO(Instant.now(), status.value(), error, e.getMessage(),specificError, request.getRequestURI());
+		ErroExceptionDTO err = new ErroExceptionDTO(Instant.now(), status.value(), error, e.getMessage(), e.getLocalizedMessage(), request.getRequestURI());
 		return ResponseEntity.status(status).body(err);
 	}
-	
 	
 	@ExceptionHandler(HttpMessageNotReadableException.class)
 	public ResponseEntity<ErroExceptionDTO> httpMessageNotReadableException(HttpMessageNotReadableException e, HttpServletRequest request){
-		//String campo = e.getLocalizedMessage().;
-		String specificError = e.getMostSpecificCause().getLocalizedMessage();
 		String error = "invalid data";
 		String mensagem = "JSON parse error: parametro em formato inválido";
 		HttpStatus status = HttpStatus.BAD_REQUEST;
-		ErroExceptionDTO err = new ErroExceptionDTO(Instant.now(), status.value(), error, mensagem, specificError, request.getRequestURI());
+		ErroExceptionDTO err = new ErroExceptionDTO(Instant.now(), status.value(), error, mensagem, e.getMostSpecificCause().getLocalizedMessage(), request.getRequestURI());
 		return ResponseEntity.status(status).body(err);
 	}
-	
 	
 	@ExceptionHandler(ResourceAccessDenied.class)
 	public ResponseEntity<ErroExceptionDTO> resourceAccessDenied(ResourceAccessDenied e, HttpServletRequest request){
 		String error = "Access Denied";
-		String specificError = e.getLocalizedMessage();
 		HttpStatus status = HttpStatus.FORBIDDEN;
-		ErroExceptionDTO err = new ErroExceptionDTO(Instant.now(), status.value(), error, e.getMessage(), specificError, request.getRequestURI());
+		ErroExceptionDTO err = new ErroExceptionDTO(Instant.now(), status.value(), error, e.getMessage(), e.getLocalizedMessage(), request.getRequestURI());
 		return ResponseEntity.status(status).body(err);
 	}
-	
 	
 	@ExceptionHandler(InvalidDateException.class)
 	public ResponseEntity<ErroExceptionDTO> invalidDateException(InvalidDateException e, HttpServletRequest request){
 		String error = "invalid data";
-		String specificError = e.getLocalizedMessage();
 		HttpStatus status = HttpStatus.BAD_REQUEST;
-		ErroExceptionDTO err = new ErroExceptionDTO(Instant.now(), status.value(), error, e.getMessage(), specificError, request.getRequestURI());
+		ErroExceptionDTO err = new ErroExceptionDTO(Instant.now(), status.value(), error, e.getMessage(), e.getLocalizedMessage(), request.getRequestURI());
 		return ResponseEntity.status(status).body(err);
 	}
-	
 	
 	@ExceptionHandler(MethodArgumentTypeMismatchException.class)
 	public ResponseEntity<ErroExceptionDTO> methodArgumentTypeMismatchException(MethodArgumentTypeMismatchException e, HttpServletRequest request){
@@ -105,23 +91,19 @@ public class ExceptionHandle{
 		return ResponseEntity.status(status).body(err);
 	}
 	
-	//HttpRequestMethodNotSupportedException
-	
 	@ExceptionHandler(HttpRequestMethodNotSupportedException.class)
 	public ResponseEntity<ErroExceptionDTO> httpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e, HttpServletRequest request){
 		String error = "Method Not Allowed";
-		String specificError = e.getLocalizedMessage();
 		HttpStatus status = HttpStatus.BAD_REQUEST;
-		ErroExceptionDTO err = new ErroExceptionDTO(Instant.now(), status.value(), error, e.getMessage(), specificError, request.getRequestURI());
+		ErroExceptionDTO err = new ErroExceptionDTO(Instant.now(), status.value(), error, e.getMessage(), e.getLocalizedMessage(), request.getRequestURI());
 		return ResponseEntity.status(status).body(err);
 	}
 	
 	@ExceptionHandler(PropertyReferenceException.class)
 	public ResponseEntity<ErroExceptionDTO> propertyReferenceException(PropertyReferenceException e, HttpServletRequest request){
 		String error = "Parametro inválido";
-		String specificError = e.getLocalizedMessage();
 		HttpStatus status = HttpStatus.BAD_REQUEST;
-		ErroExceptionDTO err = new ErroExceptionDTO(Instant.now(), status.value(), error, e.getMessage(), specificError, request.getRequestURI());
+		ErroExceptionDTO err = new ErroExceptionDTO(Instant.now(), status.value(), error, e.getMessage(), e.getLocalizedMessage(), request.getRequestURI());
 		return ResponseEntity.status(status).body(err);
 	}
 	
