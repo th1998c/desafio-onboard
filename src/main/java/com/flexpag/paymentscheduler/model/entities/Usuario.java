@@ -2,15 +2,15 @@ package com.flexpag.paymentscheduler.model.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -27,12 +27,14 @@ public class Usuario implements Serializable, UserDetails{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	private String nome;
+	private String nameUser;
 	private String email; 
 	private String senha;
 	@OneToMany (mappedBy = "usuario")
 	private List<Payment> payments = new ArrayList<>();
-	@ManyToMany(fetch = FetchType.EAGER)
-	private List<Perfil> perfis = new ArrayList<>();
+	@ManyToOne
+	private Perfil perfis;
 	
 	public Usuario() {
 		
@@ -41,8 +43,18 @@ public class Usuario implements Serializable, UserDetails{
 	public Usuario(String email, String senha) {
 		this.email = email;
 		this.senha = senha;
+		this.perfis = new Perfil(1L, "ADM");
 	}
 	
+	
+	public Usuario(String nome, String nameUser, String email, String senha) {
+		this.nome = nome;
+		this.nameUser = nameUser;
+		this.email = email;
+		this.senha = senha;
+		this.perfis = new Perfil(2L, "COMUM");
+	}
+		
 	
 	public void setRespostas(List<Payment> payments) {
 		this.payments.addAll(payments);
@@ -54,7 +66,7 @@ public class Usuario implements Serializable, UserDetails{
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return this.perfis;
+		return Arrays.asList(this.perfis);
 	}
 
 	@Override
@@ -86,5 +98,6 @@ public class Usuario implements Serializable, UserDetails{
 	public boolean isEnabled() {
 		return true;
 	}
-	
+
+
 }

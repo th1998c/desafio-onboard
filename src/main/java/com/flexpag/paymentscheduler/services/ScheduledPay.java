@@ -23,9 +23,10 @@ public class ScheduledPay {
 	@Transactional
 	public void RealizaPagamentosAgendados() {
 		
-		 List<Payment> pagamentos = service.findStatus(PaymentStatus.PENDING);	
-		 pagamentos.forEach(x -> { if(x.getPaymentDate().isBefore(LocalDateTime.now())) service.pay(x.getId()); });
-		 
+		 List<Payment> pagamentos = service.findStatus(PaymentStatus.PENDING);			 
+		 pagamentos.stream()
+		 .filter(x -> x.getPaymentDate().isBefore(LocalDateTime.now()))
+		 .forEach(x -> service.pay(x.getId()));;
 	}
 	
 }

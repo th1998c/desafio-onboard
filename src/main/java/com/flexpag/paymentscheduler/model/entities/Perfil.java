@@ -14,7 +14,11 @@ import lombok.Data;
 @Data
 @Entity
 public class Perfil implements GrantedAuthority, Serializable{
+	
 	private static final long serialVersionUID = 1L;
+	
+	public Perfil() {
+	}
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,4 +30,11 @@ public class Perfil implements GrantedAuthority, Serializable{
 		// TODO Auto-generated method stub
 		return this.nome;
 	}
+
+	public Perfil(long id, String nome) {
+		this.id = id;
+		this.nome = nome;
+	}
+
+
 }

@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import com.flexpag.paymentscheduler.model.entities.Perfil;
 import com.flexpag.paymentscheduler.repositories.UsuarioRepository;
 
 @EnableWebSecurity
@@ -47,7 +48,10 @@ public class SecurityConfigurations {
 	        .antMatchers(HttpMethod.POST, "/payments").permitAll()
 	        .antMatchers(HttpMethod.PUT, "/payments/*").permitAll()
 	        .antMatchers(HttpMethod.PATCH, "/payments/*").permitAll()
+	        //.antMatchers(HttpMethod.DELETE, "/payments/*").hasAuthority("ADM")
 	        .antMatchers(HttpMethod.DELETE, "/payments/*").permitAll()
+	        .antMatchers(HttpMethod.POST, "/user").permitAll()
+	        .antMatchers(HttpMethod.GET, "/user/*").permitAll()
 	        .antMatchers("/").permitAll()
 	        .antMatchers("/h2-console/**").permitAll()
 	        //fim das autorizacoes provisorias

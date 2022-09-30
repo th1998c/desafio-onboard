@@ -9,9 +9,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 
 import com.flexpag.paymentscheduler.model.entities.Payment;
+import com.flexpag.paymentscheduler.model.entities.Perfil;
 import com.flexpag.paymentscheduler.model.entities.Usuario;
 import com.flexpag.paymentscheduler.model.enums.PaymentStatus;
 import com.flexpag.paymentscheduler.repositories.PaymentRepository;
+import com.flexpag.paymentscheduler.repositories.PerfilRepository;
 import com.flexpag.paymentscheduler.repositories.UsuarioRepository;
 
 @Configuration
@@ -22,11 +24,19 @@ public class Config implements CommandLineRunner {
 	
 	@Autowired
 	private UsuarioRepository usuarioRepository;
+	
+	@Autowired
+	private PerfilRepository perfilRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
 		
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		
+		Perfil adm = new Perfil(1L, "ADM");
+		Perfil comum = new Perfil(2L, "COMUM");
+		
+		
 		
 		Usuario usuario1 = new Usuario("user@email.com", "$2a$10$O3Rkxe5DVBXFteoDUgWN7.Isw8hI5wzyoxnMTuaab40M8Ex34q9gW");
 		
@@ -66,7 +76,9 @@ public class Config implements CommandLineRunner {
 				payment10, payment11, payment12, payment13, payment14, payment15, payment16, payment17, payment18, payment19, payment20,
 				payment21, payment22, payment23, payment24, payment25, payment26));
 		
-
+		
+		perfilRepository.saveAll(Arrays.asList(adm, comum));
+		
 		usuarioRepository.saveAll(Arrays.asList(usuario1));
 		
 		paymentRepository.saveAll(Arrays.asList(payment1, payment2, payment3, payment4, payment5, payment6, payment7, payment8, payment9,
