@@ -8,13 +8,13 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.flexpag.paymentscheduler.model.entities.Perfil;
 import com.flexpag.paymentscheduler.repositories.UsuarioRepository;
 
 @EnableWebSecurity
@@ -46,6 +46,8 @@ public class SecurityConfigurations {
 	        .antMatchers(HttpMethod.POST, "/auth").permitAll()
 	        .antMatchers(HttpMethod.POST, "/user").permitAll()
 	        .antMatchers(HttpMethod.GET, "/user/*").permitAll()
+	        .antMatchers(HttpMethod.GET, "/actuator").permitAll()
+	        .antMatchers(HttpMethod.GET, "/actuator/**").permitAll()
 	        .antMatchers("/h2-console/**").permitAll()
 	        .anyRequest().authenticated()
 	        .and().csrf().disable()
@@ -56,5 +58,10 @@ public class SecurityConfigurations {
 			 http.headers().frameOptions().disable();
 			return http.build();        
 		}
-
+		 
+		 @Bean
+		    public WebSecurityCustomizer webSecurityCustomizer() {
+		        return (web) -> web.ignoring().antMatchers("/**.html", "/v2/api-docs", "/webjars/**", "/configuration/**", "/swagger-resources/**");
+		    }
+		 
 }
