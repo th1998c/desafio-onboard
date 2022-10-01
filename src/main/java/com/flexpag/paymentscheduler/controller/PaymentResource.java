@@ -1,5 +1,6 @@
 package com.flexpag.paymentscheduler.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
@@ -53,8 +54,8 @@ public class PaymentResource {
 	@PostMapping
 	@Transactional
 	@CacheEvict(value = "listaDePagamentos", allEntries = true)
-	public ResponseEntity<PaymentDTO> create(@RequestBody @Valid PaymentForm form, UriComponentsBuilder uriBuilder) {
-		return paymentService.createPayment(form, uriBuilder);
+	public ResponseEntity<PaymentDTO> create(@RequestBody @Valid PaymentForm form, UriComponentsBuilder uriBuilder, HttpServletRequest request) {
+		return paymentService.createPayment(form, uriBuilder, request);
 	}
 	
 	@PutMapping("/{id}")

@@ -44,8 +44,10 @@ public class AutenticacaoViaTokenFilter extends OncePerRequestFilter{
 	private void autenticarCliente(String token) {
 		    Long idUsuario = tokenService.getIdUsuario(token); 
 		    Optional<Usuario> user = usuarioRepository.findById(idUsuario);
-			UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(user.get(), null, user.get().getAuthorities());
-			SecurityContextHolder.getContext().setAuthentication(authentication);
+		    if (user.isPresent()) {
+				UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(user.get(), null, user.get().getAuthorities());
+				SecurityContextHolder.getContext().setAuthentication(authentication);
+			}
 	}
 
 	private String recuperarToken(HttpServletRequest request) {
