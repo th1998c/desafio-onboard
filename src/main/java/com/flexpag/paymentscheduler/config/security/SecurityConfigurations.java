@@ -48,7 +48,8 @@ public class SecurityConfigurations {
 	        .antMatchers(HttpMethod.GET, "/user/*").permitAll()
 	        .antMatchers(HttpMethod.GET, "/actuator").permitAll()
 	        .antMatchers(HttpMethod.GET, "/actuator/**").permitAll()
-	        .antMatchers("/h2-console/**").permitAll()
+	        .antMatchers("/swagger-ui.html").permitAll()
+	        .antMatchers().permitAll()
 	        .anyRequest().authenticated()
 	        .and().csrf().disable()
 	        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -60,8 +61,9 @@ public class SecurityConfigurations {
 		}
 		 
 		 @Bean
-		    public WebSecurityCustomizer webSecurityCustomizer() {
-		        return (web) -> web.ignoring().antMatchers("/**.html", "/v2/api-docs", "/webjars/**", "/configuration/**", "/swagger-resources/**");
-		    }
+		 public WebSecurityCustomizer webSecurityCustomizer() {
+		        return (web) -> web.ignoring().
+		        		antMatchers("/**.html", "/v3/api-docs", "/webjars/**", "/configuration/**", "/swagger-resources/**",  "/swagger-ui/**", "/swagger*/**", "/swagger-ui/**", "/v3/api-docs/**");
+		}
 		 
 }

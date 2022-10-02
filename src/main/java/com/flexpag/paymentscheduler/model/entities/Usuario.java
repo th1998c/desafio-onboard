@@ -56,11 +56,11 @@ public class Usuario implements Serializable, UserDetails{
 	}
 		
 	
-	public void setRespostas(List<Payment> payments) {
+	public void setPayments(List<Payment> payments) {
 		this.payments.addAll(payments);
 	}
 	
-	public void setRespostas(Payment payment) {
+	public void setPayment(Payment payment) {
 		this.payments.add(payment);
 	}
 

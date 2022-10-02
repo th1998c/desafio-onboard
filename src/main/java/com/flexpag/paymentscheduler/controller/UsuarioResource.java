@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.flexpag.paymentscheduler.services.UsuarioService;
-import com.flexpag.paymentscheduler.services.DTO.PaymentDetalhesDTO;
 import com.flexpag.paymentscheduler.services.DTO.UsuarioDTO;
 import com.flexpag.paymentscheduler.services.form.UsuarioForm;
 
