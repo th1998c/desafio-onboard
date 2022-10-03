@@ -3,6 +3,7 @@ package com.flexpag.paymentscheduler.config.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -19,6 +20,7 @@ import com.flexpag.paymentscheduler.repositories.UsuarioRepository;
 
 @EnableWebSecurity
 @Configuration
+@Profile("prod")
 public class SecurityConfigurations {
 				
 	    @Autowired
@@ -46,8 +48,9 @@ public class SecurityConfigurations {
 	        .antMatchers(HttpMethod.POST, "/auth").permitAll()
 	        .antMatchers(HttpMethod.POST, "/user").permitAll()
 	        .antMatchers(HttpMethod.GET, "/user/*").permitAll()
-	        .antMatchers(HttpMethod.GET, "/actuator/**").permitAll()
-	        .antMatchers("/swagger-ui.html").permitAll()
+	        //.antMatchers(HttpMethod.GET, "/actuator/**").permitAll()
+	        //.antMatchers("/swagger-ui.html").permitAll()
+	        //.antMatchers("/h2-console/**").permitAll()
 	        .antMatchers().permitAll()
 	        .anyRequest().authenticated()
 	        .and().csrf().disable()
