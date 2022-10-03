@@ -17,6 +17,10 @@ spring:
       hibernate:
         format_sql: true
         show_sql: true
+  boot:
+   admin:
+     client:
+      url: http://localhost:8081
   
   mvc:
     pathmatch:
@@ -29,10 +33,7 @@ springdoc:
   show-actuator: true
   packagesToScan: com.flexpag.paymentscheduler
   
-  boot:
-   admin:
-     client:
-      url: http://localhost:8081
+
  
 management:
   info:
@@ -45,7 +46,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: "*"
+         include: "*"
 
 info:
   app:

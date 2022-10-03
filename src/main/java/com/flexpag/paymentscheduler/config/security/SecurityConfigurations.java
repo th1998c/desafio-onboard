@@ -46,7 +46,6 @@ public class SecurityConfigurations {
 	        .antMatchers(HttpMethod.POST, "/auth").permitAll()
 	        .antMatchers(HttpMethod.POST, "/user").permitAll()
 	        .antMatchers(HttpMethod.GET, "/user/*").permitAll()
-	        .antMatchers(HttpMethod.GET, "/actuator").permitAll()
 	        .antMatchers(HttpMethod.GET, "/actuator/**").permitAll()
 	        .antMatchers("/swagger-ui.html").permitAll()
 	        .antMatchers().permitAll()
@@ -55,7 +54,6 @@ public class SecurityConfigurations {
 	        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 	        .and().addFilterBefore(new AutenticacaoViaTokenFilter(tokenService, usuarioRepository), UsernamePasswordAuthenticationFilter.class);
 			
-			// alteracao rotas liberadas para front não precisar usar autenticação
 			 http.headers().frameOptions().disable();
 			return http.build();        
 		}
