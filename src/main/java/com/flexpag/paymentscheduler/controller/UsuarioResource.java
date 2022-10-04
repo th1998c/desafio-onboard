@@ -1,10 +1,8 @@
 package com.flexpag.paymentscheduler.controller;
 
-import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,8 +25,6 @@ public class UsuarioResource {
 	
 
 	@PostMapping
-	@Transactional
-	@CacheEvict(value = "listaDePagamentos", allEntries = true)
 	public ResponseEntity<UsuarioDTO> create(@RequestBody @Valid UsuarioForm form, UriComponentsBuilder uriBuilder) {
 		return usuarioService.createUsuario(form, uriBuilder);
 	}

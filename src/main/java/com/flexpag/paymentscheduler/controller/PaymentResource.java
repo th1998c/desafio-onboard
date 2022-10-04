@@ -52,7 +52,6 @@ public class PaymentResource {
 	}
 	
 	@PostMapping
-	@Transactional
 	@CacheEvict(value = "listaDePagamentos", allEntries = true)
 	public ResponseEntity<PaymentDTO> create(@RequestBody @Valid PaymentForm form, UriComponentsBuilder uriBuilder, HttpServletRequest request) {
 		return paymentService.createPayment(form, uriBuilder, request);
@@ -71,7 +70,6 @@ public class PaymentResource {
 	}
 	
 	@DeleteMapping("/{id}")
-	@Transactional
 	public ResponseEntity<Payment> deletePayment(@PathVariable Long id) {
 		return paymentService.delete(id);
 	}

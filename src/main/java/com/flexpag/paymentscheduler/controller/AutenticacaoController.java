@@ -3,6 +3,7 @@ package com.flexpag.paymentscheduler.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -29,14 +30,18 @@ public class AutenticacaoController {
 	@Autowired
 	private TokenService tokenService;
 	
+	@Value("${jwt.expiration}")
+	private String expiration;
+	
 	@PostMapping
 	public ResponseEntity<TokenDto> autenticar(@RequestBody @Valid LoginForm form){
 		UsernamePasswordAuthenticationToken dadosLogin = form.converter();
 			
 		try {
+			
 			Authentication authentication = authenticationManager.authenticate(dadosLogin);
 			String token = tokenService.gerarToken(authentication);			
-			return ResponseEntity.ok(new TokenDto(token, "Bearer"));
+			return ResponseEntity.ok(new TokenDto(token, "Bearer", expiration));
 			
 		} catch (AuthenticationException e) {
 			return ResponseEntity.badRequest().build();	

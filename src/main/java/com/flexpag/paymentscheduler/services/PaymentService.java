@@ -2,8 +2,10 @@ package com.flexpag.paymentscheduler.services;
 
 import java.net.URI;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,7 +89,7 @@ public class PaymentService {
 	private Usuario retornaUserLogado(HttpServletRequest request) {
 		String token = request.getHeader("Authorization");
 		Long id = tokenService.getIdUsuario(token.substring(7, token.length()));
-		return usuarioRepository.findById(id).get();
+		return usuarioRepository.findById(id).orElseThrow(() -> new NoSuchElementException(Usuario.class.getSimpleName()));
 	}
 
 }

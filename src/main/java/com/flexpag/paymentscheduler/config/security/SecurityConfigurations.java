@@ -15,13 +15,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.flexpag.paymentscheduler.repositories.UsuarioRepository;
 
 @EnableWebSecurity
 @Configuration
 @Profile("prod")
-public class SecurityConfigurations {
+public class SecurityConfigurations  implements WebMvcConfigurer{
 				
 	    @Autowired
 	    private TokenService tokenService;
@@ -48,11 +49,9 @@ public class SecurityConfigurations {
 	        .antMatchers(HttpMethod.POST, "/auth").permitAll()
 	        .antMatchers(HttpMethod.POST, "/user").permitAll()
 	        .antMatchers(HttpMethod.GET, "/user/*").permitAll()
-	        //.antMatchers(HttpMethod.GET, "/actuator/**").permitAll()
-	        //.antMatchers("/swagger-ui.html").permitAll()
-	        //.antMatchers("/h2-console/**").permitAll()
 	        .antMatchers().permitAll()
 	        .anyRequest().authenticated()
+	        .and().cors()
 	        .and().csrf().disable()
 	        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 	        .and().addFilterBefore(new AutenticacaoViaTokenFilter(tokenService, usuarioRepository), UsernamePasswordAuthenticationFilter.class);
@@ -66,5 +65,5 @@ public class SecurityConfigurations {
 		        return (web) -> web.ignoring().
 		        		antMatchers("/**.html", "/v2/api-docs", "/webjars/**", "/configuration/**", "/swagger-resources/**",  "/swagger-ui/**", "/swagger*/**", "/swagger-ui/**", "/v3/api-docs/**");
 		}
-		 
+		
 }

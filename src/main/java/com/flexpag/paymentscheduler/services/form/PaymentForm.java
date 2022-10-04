@@ -9,9 +9,9 @@ import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.flexpag.paymentscheduler.model.entities.Payment;
 
-import lombok.Data;
+import lombok.Setter;
 
-@Data
+@Setter
 public class PaymentForm {
 	@NotNull @DecimalMin("0.01")
 	private Double paymentValue;

@@ -16,9 +16,9 @@ import javax.persistence.OneToMany;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import lombok.Data;
+import lombok.Getter;
 
-@Data
+@Getter
 @Entity
 public class Usuario implements Serializable, UserDetails{
 

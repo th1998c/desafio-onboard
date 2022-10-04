@@ -1,8 +1,8 @@
 package com.flexpag.paymentscheduler.controller.DTO;
 
-import lombok.Data;
+import lombok.Getter;
 
-@Data
+@Getter
 public class ErroFormDTO {
 	
 	private String campo;

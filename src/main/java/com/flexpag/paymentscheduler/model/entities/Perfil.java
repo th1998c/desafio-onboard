@@ -9,9 +9,9 @@ import javax.persistence.Id;
 
 import org.springframework.security.core.GrantedAuthority;
 
-import lombok.Data;
+import lombok.Getter;
 
-@Data
+@Getter
 @Entity
 public class Perfil implements GrantedAuthority, Serializable{
 	

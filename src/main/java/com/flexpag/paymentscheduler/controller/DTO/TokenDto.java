@@ -1,16 +1,18 @@
 package com.flexpag.paymentscheduler.controller.DTO;
 
-import lombok.Data;
+import lombok.Getter;
 
-@Data
+@Getter
 public class TokenDto {
 
-	private String token;
-	private String tipo;
+	private String access_token;
+	private String token_type;
+	private String expires_in;
 
-	public TokenDto(String token, String tipo) {
-		this.token = token;
-		this.tipo = tipo;
+	public TokenDto(String access_token, String token_type, String expires_in) {
+		this.access_token = access_token;
+		this.token_type = token_type;
+		this.expires_in = expires_in;
 	}
 	
 }

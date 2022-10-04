@@ -13,9 +13,9 @@ import com.flexpag.paymentscheduler.repositories.PaymentRepository;
 import com.flexpag.paymentscheduler.services.exceptions.InvalidDateException;
 import com.flexpag.paymentscheduler.services.exceptions.ResourceAccessDenied;
 
-import lombok.Data;
+import lombok.Setter;
 
-@Data
+@Setter
 public class UpdatePaymentForm {
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm", timezone="GMT-3")

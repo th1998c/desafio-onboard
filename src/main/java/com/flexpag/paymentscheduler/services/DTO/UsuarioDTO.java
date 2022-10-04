@@ -2,9 +2,9 @@ package com.flexpag.paymentscheduler.services.DTO;
 
 import com.flexpag.paymentscheduler.model.entities.Usuario;
 
-import lombok.Data;
+import lombok.Getter;
 
-@Data
+@Getter
 public class UsuarioDTO {
 	
 	private String email;

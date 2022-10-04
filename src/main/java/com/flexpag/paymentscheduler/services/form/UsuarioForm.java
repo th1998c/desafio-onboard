@@ -8,9 +8,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.flexpag.paymentscheduler.model.entities.Usuario;
 
-import lombok.Data;
+import lombok.Setter;
 
-@Data
+@Setter
 public class UsuarioForm {
 	@NotNull @NotEmpty
 	private String nome;

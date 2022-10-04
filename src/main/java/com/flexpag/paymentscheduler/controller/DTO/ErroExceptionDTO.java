@@ -3,9 +3,9 @@ package com.flexpag.paymentscheduler.controller.DTO;
 import java.io.Serializable;
 import java.time.Instant;
 
-import lombok.Data;
+import lombok.Getter;
 
-@Data
+@Getter
 public class ErroExceptionDTO implements Serializable{
 	
 private static final long serialVersionUID = 1L;
