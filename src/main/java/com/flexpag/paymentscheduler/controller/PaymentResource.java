@@ -71,13 +71,13 @@ public class PaymentResource {
 	
 	@PatchMapping("/{id}")
 	@Transactional
-	public ResponseEntity<PaymentDTO> pay(@PathVariable Long id) {
-		return paymentService.pay(id);		
+	public String pay(@PathVariable Long id) {
+		paymentService.pay(id);
+		return "redirect:/payments";
 	}
 	
 	@DeleteMapping("/{id}")
 	public String deletePayment(@PathVariable Long id) {
-	    System.out.println(id);
 		paymentService.delete(id);
 		return "redirect:/payments";
 	}
