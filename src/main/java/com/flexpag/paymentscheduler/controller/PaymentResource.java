@@ -12,6 +12,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -21,7 +23,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.flexpag.paymentscheduler.controller.form.UpdatePaymentForm;
@@ -32,7 +33,7 @@ import com.flexpag.paymentscheduler.services.DTO.PaymentDTO;
 import com.flexpag.paymentscheduler.services.DTO.PaymentDetalhesDTO;
 import com.flexpag.paymentscheduler.services.form.PaymentForm;
 
-@RestController
+@Controller
 @RequestMapping(value = "/payments")
 public class PaymentResource {
 
@@ -41,9 +42,14 @@ public class PaymentResource {
 	
 	@GetMapping
 	@Cacheable(value = "listaDePagamentos")
-	public Page<PaymentDetalhesDTO> findAll(@RequestParam(required = false) PaymentStatus status, 
+	public String findAll(Model model, @RequestParam(required = false) PaymentStatus status, 
 			@PageableDefault(sort = "id", direction = Direction.ASC, page = 0, size = 10) Pageable paginacao) {
-		return paymentService.findAll(status, paginacao);		
+		Page<PaymentDetalhesDTO> pagamentos = paymentService.findAll(status, paginacao);
+	    model.addAttribute("currentPage", pagamentos.getNumber());
+	    model.addAttribute("totalPages", pagamentos.getTotalPages());
+	    model.addAttribute("totalItems", pagamentos.getTotalElements());
+		model.addAttribute("payments", pagamentos);
+		return "payments";
 	}
 	
 	@GetMapping("/{id}")
@@ -73,5 +79,6 @@ public class PaymentResource {
 	public ResponseEntity<Payment> deletePayment(@PathVariable Long id) {
 		return paymentService.delete(id);
 	}
+	
 	
 }
