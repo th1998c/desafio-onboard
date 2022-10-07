@@ -26,6 +26,9 @@ spring:
     pathmatch:
       matching-strategy: ANT_PATH_MATCHER
     allow-bean-definition-overriding: true
+    hiddenmethod:
+     filter:
+      enabled: true
       
 springdoc:
   swagger-ui:

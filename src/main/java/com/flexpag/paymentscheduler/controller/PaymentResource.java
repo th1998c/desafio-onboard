@@ -76,8 +76,10 @@ public class PaymentResource {
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Payment> deletePayment(@PathVariable Long id) {
-		return paymentService.delete(id);
+	public String deletePayment(@PathVariable Long id) {
+	    System.out.println(id);
+		paymentService.delete(id);
+		return "redirect:/payments";
 	}
 	
 	

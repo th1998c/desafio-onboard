@@ -46,24 +46,26 @@ public class SecurityConfigurations  implements WebMvcConfigurer{
 	        .authorizeHttpRequests()
 	        .antMatchers(HttpMethod.GET, "/payments").permitAll()
 	        .antMatchers(HttpMethod.GET, "/payments/*").permitAll()
+	        .antMatchers(HttpMethod.DELETE, "/payments/*").permitAll()
 	        .antMatchers(HttpMethod.POST, "/auth").permitAll()
 	        .antMatchers(HttpMethod.POST, "/user").permitAll()
 	        .antMatchers(HttpMethod.GET, "/user/*").permitAll()
+	        .antMatchers(HttpMethod.GET, "/img/**").permitAll()
 	        .antMatchers().permitAll()
 	        .anyRequest().authenticated()
 	        .and().cors()
 	        .and().csrf().disable()
 	        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-	        .and().addFilterBefore(new AutenticacaoViaTokenFilter(tokenService, usuarioRepository), UsernamePasswordAuthenticationFilter.class);
-			
-			 http.headers().frameOptions().disable();
+	        .and().addFilterBefore(new AutenticacaoViaTokenFilter(tokenService, usuarioRepository), UsernamePasswordAuthenticationFilter.class)
+	        .headers().frameOptions().sameOrigin()
+	        .xssProtection().block(false);
 			return http.build();        
 		}
 		 
 		 @Bean
 		 public WebSecurityCustomizer webSecurityCustomizer() {
 		        return (web) -> web.ignoring().
-		        		antMatchers("/**.html", "/v2/api-docs", "/webjars/**", "/configuration/**", "/swagger-resources/**",  "/swagger-ui/**", "/swagger*/**", "/swagger-ui/**", "/v3/api-docs/**");
+		        		antMatchers("/**.html", "/**.css", "/**.svg","/img/**" , "/v2/api-docs", "/webjars/**", "/configuration/**", "/swagger-resources/**",  "/swagger-ui/**", "/swagger*/**", "/swagger-ui/**", "/v3/api-docs/**");
 		}
 		
 }
