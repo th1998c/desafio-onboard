@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
@@ -10,7 +10,7 @@
         integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 </head>
 
-<body>
+<body class="p-3 mb-2 bg-light text-dark">
     <div class="container">
         <div class="card">
             <div class="navbar bg-light">
@@ -19,8 +19,8 @@
             <div th:each="payment : ${payments}" class="card mb-3 col-sm-12 col-md-14 col-lg-14">
                 <div class="card-body border-top ">
                     <div class="card-header p-3 mb-2 bg-secondary text-white border-top mb-1">Id: <span th:text="${payment.id}" ></span> </div>
-                    <div class="border-top mb-1">Valor: <span th:text="${payment.paymentValue}"></span> </div>
-                    <div class="border-top mb-1">Data Agendamento: <span th:text="${payment.paymentDate}"></span> </div>
+                    <div class="border-top mb-1">Valor: <span th:text="${payment.paymentValue}+' R$'"></span> </div>
+                    <div class="border-top mb-1">Data Agendamento: <span th:text="${#temporals.format(payment.paymentDate, 'dd-MM-yyyy HH:mm')}+h"></span> </div>
                     <div th:if="${payment.status.name() == 'PAID'}" class="border-top mb-1 alert alert-success">Status: <span th:text="${payment.status}"></span> </div>
                     <div th:if="${payment.status.name() == 'PENDING'}" class="border-top mb-1 alert alert-warning">Status: <span th:text="${payment.status}"></span> </div>
                    
