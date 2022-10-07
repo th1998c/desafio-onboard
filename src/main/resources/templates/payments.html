@@ -21,7 +21,9 @@
                     <div class="card-header p-3 mb-2 bg-secondary text-white border-top mb-1">Id: <span th:text="${payment.id}" ></span> </div>
                     <div class="border-top mb-1">Valor: <span th:text="${payment.paymentValue}"></span> </div>
                     <div class="border-top mb-1">Data Agendamento: <span th:text="${payment.paymentDate}"></span> </div>
-                    <div class="border-top mb-1">Status: <span th:text="${payment.status}"></span> </div>
+                    <div th:if="${payment.status.name() == 'PAID'}" class="border-top mb-1 alert alert-success">Status: <span th:text="${payment.status}"></span> </div>
+                    <div th:if="${payment.status.name() == 'PENDING'}" class="border-top mb-1 alert alert-warning">Status: <span th:text="${payment.status}"></span> </div>
+                   
                 </div>
             </div>
         </div>
@@ -37,7 +39,8 @@
     <div class="container text-center  mt-3">
             <div class="row justify-content-md-center">
                 <ul th:each="i: ${#numbers.sequence(0, totalPages-1)}" class="pagination , col-2 col-sm-2 col-md-2 col-lg-1 row justify-content-md-center">
-                    <li class="page-itempage-item"><a th:href="@{'/payments?page=' + ${i}}" class="page-link">[[${i+1}]]</a></li>
+                    <li class="page-itempage-item active"><a th:if="${currentPage} == ${i}" th:href="@{'/payments?page=' + ${i}}" class="page-link">[[${i+1}]]</a></li>
+                    <li class="page-itempage-item"><a th:unless="${currentPage} == ${i}" th:href="@{'/payments?page=' + ${i}}" class="page-link">[[${i+1}]]</a></li>
                     &nbsp; &nbsp;
                 </ul>
             </div>
