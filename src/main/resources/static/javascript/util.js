@@ -7,4 +7,6 @@ function validaData(){
     var hora = dateControl.value.toString().slice(11,16);
     var data = dia+'/'+ mes + '/' + ano+ ' '+ hora;
     dateRetorno.value = data.toString();
+    console.log(dateControl)
 }
+

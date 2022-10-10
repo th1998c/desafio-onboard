@@ -63,9 +63,15 @@ public class PaymentResource {
 	
 	@PostMapping
 	@CacheEvict(value = "listaDePagamentos", allEntries = true)
-	public ResponseEntity<PaymentDTO> create(@RequestBody @Valid PaymentForm form, UriComponentsBuilder uriBuilder, HttpServletRequest request) {
-		return paymentService.createPayment(form, uriBuilder, request);
+	public String create(@Valid PaymentForm form, UriComponentsBuilder uriBuilder, HttpServletRequest request) {
+		paymentService.createPayment(form, uriBuilder, request);
+		return "redirect:/payments";
 	}
+	
+	@GetMapping("/create")
+    public String createPayment(){
+        return "create";
+    }
 	
 	@PutMapping("/{id}")
 	@Transactional

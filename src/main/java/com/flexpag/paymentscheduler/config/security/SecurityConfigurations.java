@@ -51,6 +51,7 @@ public class SecurityConfigurations  implements WebMvcConfigurer{
 	        .antMatchers(HttpMethod.DELETE, "/payments/*").permitAll()
 	        .antMatchers(HttpMethod.PATCH, "/payments/*").permitAll()
 	        .antMatchers(HttpMethod.PUT, "/payments/**").permitAll()
+	        .antMatchers(HttpMethod.POST, "/payments").permitAll()
 	        .antMatchers(HttpMethod.POST, "/payments/**").permitAll()
 	        .antMatchers(HttpMethod.POST, "/auth").permitAll()
 	        .antMatchers(HttpMethod.POST, "/user").permitAll()

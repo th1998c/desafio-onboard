@@ -50,7 +50,7 @@ public class PaymentService {
 	
 	public ResponseEntity<PaymentDTO> createPayment(PaymentForm form, UriComponentsBuilder uriBuilder, HttpServletRequest request) {
 		Payment payment = form.converter();
-		payment.setUsuario(retornaUserLogado(request));
+		//payment.setUsuario(retornaUserLogado(request));
 		paymentRepository.save(payment);
 		 URI uri = uriBuilder.path("/payments/{id}").buildAndExpand(payment.getId()).toUri();
 		 return ResponseEntity.created(uri).body(new PaymentDTO(payment));
