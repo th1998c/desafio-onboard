@@ -15,9 +15,6 @@
         <nav class="navbar navbar-expand-lg bg-light d-flex justify-content-around">
             <div class="navbar-nav">
                 <a class="nav-item nav-link active" href="/payments">HOME</a>
-                <a class="nav-item nav-link" href=""></a>
-                <a class="nav-item nav-link" href=""></a>
-                <a class="nav-item nav-link" href=""></a>
             </div>
             <a th:href="@{/payments/create}">
                 <button class="btn btn-outline-secondary" type="submit">CREATE</button>
@@ -95,8 +92,8 @@
 
 <footer>
     <div class="container text-center  mt-3">
-            <div class="row justify-content-md-center">
-                <ul th:each="i: ${#numbers.sequence(0, totalPages-1)}" class="pagination , col-2 col-sm-2 col-md-2 col-lg-1 row justify-content-md-center">
+            <div class="row justify-content-center">
+                <ul th:each="i: ${#numbers.sequence(0, totalPages-1)}" class="pagination , col-4 col-sm-2 col-md-2 col-lg-1 row justify-content-md-center">
                     <li class="page-itempage-item active"><a th:if="${currentPage} == ${i}" th:href="@{'/payments?page=' + ${i}}" class="page-link">[[${i+1}]]</a></li>
                     <li class="page-itempage-item"><a th:unless="${currentPage} == ${i}" th:href="@{'/payments?page=' + ${i}}" class="page-link">[[${i+1}]]</a></li>
                     &nbsp; &nbsp;

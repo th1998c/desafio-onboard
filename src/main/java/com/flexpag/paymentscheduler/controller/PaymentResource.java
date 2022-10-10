@@ -69,7 +69,8 @@ public class PaymentResource {
 	}
 	
 	@GetMapping("/create")
-    public String createPayment(){
+    public String createPayment(Model model){
+	    model.addAttribute("dataAtual", LocalDateTime.now().toString().substring(0, 16));
         return "create";
     }
 	
@@ -83,10 +84,8 @@ public class PaymentResource {
 	@PostMapping("/edit/{id}")
 	public String edit(@PathVariable Long id, Model model){
 	    PaymentDetalhesDTO payment = paymentService.findPaymentById(id);
-	    String dataAtual = LocalDateTime.now().toString().substring(0, 16);
-	    String dataMaxima = payment.getPaymentDate().toString().substring(0, 16);
-	    model.addAttribute("dataMaxima", dataMaxima);
-	    model.addAttribute("dataAtual", dataAtual);
+	    model.addAttribute("dataMaxima", payment.getPaymentDate().toString().substring(0, 16));
+	    model.addAttribute("dataAtual", LocalDateTime.now().toString().substring(0, 16));
 	    model.addAttribute("payment", payment);
 		return "editPayment";
 	}
