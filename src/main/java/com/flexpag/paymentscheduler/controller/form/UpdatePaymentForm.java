@@ -18,7 +18,7 @@ import lombok.Setter;
 @Setter
 public class UpdatePaymentForm {
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm", timezone="GMT-3")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy", timezone="GMT-3")
 	@NotNull @Future
 	private LocalDateTime paymentDate;
 	

@@ -1,5 +1,7 @@
 package com.flexpag.paymentscheduler.controller;
 
+import java.time.LocalDateTime;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -53,8 +55,10 @@ public class PaymentResource {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<PaymentDetalhesDTO> findById(@PathVariable Long id) {
-		return paymentService.findPaymentById(id);
+	public String findById(@PathVariable Long id, Model model) {
+		PaymentDetalhesDTO payment = paymentService.findPaymentById(id);
+		model.addAttribute("payment", payment);
+		return "payment";
 	}
 	
 	@PostMapping
@@ -65,8 +69,20 @@ public class PaymentResource {
 	
 	@PutMapping("/{id}")
 	@Transactional
-	public ResponseEntity<PaymentDetalhesDTO> updatePayment(@PathVariable Long id, @Valid @RequestBody UpdatePaymentForm form) {
-		return paymentService.updatePayment(id, form);	
+	public String updatePayment(@PathVariable Long id, @Valid  UpdatePaymentForm form) {
+		 paymentService.updatePayment(id, form);
+		return "redirect:/payments/{id}";
+	}
+
+	@PostMapping("/edit/{id}")
+	public String edit(@PathVariable Long id, Model model){
+	    PaymentDetalhesDTO payment = paymentService.findPaymentById(id);
+	    String dataAtual = LocalDateTime.now().toString().substring(0, 16);
+	    String dataMaxima = payment.getPaymentDate().toString().substring(0, 16);
+	    model.addAttribute("dataMaxima", dataMaxima);
+	    model.addAttribute("dataAtual", dataAtual);
+	    model.addAttribute("payment", payment);
+		return "editPayment";
 	}
 	
 	@PatchMapping("/{id}")

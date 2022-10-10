@@ -43,9 +43,9 @@ public class PaymentService {
 		return PaymentDetalhesDTO.converter(paymentRepository.findByStatus(status, paginacao));
 	}
 	
-	public ResponseEntity<PaymentDetalhesDTO> findPaymentById(Long id) {
+	public PaymentDetalhesDTO findPaymentById(Long id) {
 		Optional<Payment> payment = paymentRepository.findById(id);
-		return ResponseEntity.ok(new PaymentDetalhesDTO(payment.get()));
+		return new PaymentDetalhesDTO(payment.get());
 	}
 	
 	public ResponseEntity<PaymentDTO> createPayment(PaymentForm form, UriComponentsBuilder uriBuilder, HttpServletRequest request) {

@@ -15,6 +15,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.flexpag.paymentscheduler.repositories.UsuarioRepository;
@@ -48,10 +50,11 @@ public class SecurityConfigurations  implements WebMvcConfigurer{
 	        .antMatchers(HttpMethod.GET, "/payments/*").permitAll()
 	        .antMatchers(HttpMethod.DELETE, "/payments/*").permitAll()
 	        .antMatchers(HttpMethod.PATCH, "/payments/*").permitAll()
+	        .antMatchers(HttpMethod.PUT, "/payments/**").permitAll()
+	        .antMatchers(HttpMethod.POST, "/payments/**").permitAll()
 	        .antMatchers(HttpMethod.POST, "/auth").permitAll()
 	        .antMatchers(HttpMethod.POST, "/user").permitAll()
 	        .antMatchers(HttpMethod.GET, "/user/*").permitAll()
-	        .antMatchers(HttpMethod.GET, "/img/**").permitAll()
 	        .antMatchers().permitAll()
 	        .anyRequest().authenticated()
 	        .and().cors()
@@ -60,13 +63,14 @@ public class SecurityConfigurations  implements WebMvcConfigurer{
 	        .and().addFilterBefore(new AutenticacaoViaTokenFilter(tokenService, usuarioRepository), UsernamePasswordAuthenticationFilter.class)
 	        .headers().frameOptions().sameOrigin()
 	        .xssProtection().block(false);
+			
 			return http.build();        
 		}
 		 
 		 @Bean
 		 public WebSecurityCustomizer webSecurityCustomizer() {
 		        return (web) -> web.ignoring().
-		        		antMatchers("/**.html", "/**.css", "/**.svg","/img/**" , "/v2/api-docs", "/webjars/**", "/configuration/**", "/swagger-resources/**",  "/swagger-ui/**", "/swagger*/**", "/swagger-ui/**", "/v3/api-docs/**");
+		        		antMatchers("/**/*.html", "/**/*.css", "/**/*.js","*/resources/**", "/**/*.svg","/img/**" , "/v2/api-docs", "/webjars/**", "/configuration/**", "/swagger-resources/**",  "/swagger-ui/**", "/swagger*/**", "/swagger-ui/**", "/v3/api-docs/**");
 		}
 		
 }

@@ -21,6 +21,9 @@ spring:
    admin:
      client:
       url: http://localhost:8081
+  thymeleaf:
+   template-resolver-order: 1
+   mode: HTML
   
   mvc:
     pathmatch:

@@ -12,5 +12,8 @@ public class WebSecurityConfig  implements WebMvcConfigurer {
         registry.addMapping("/**")
             .allowedOrigins("http://localhost:4200")
             .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD", "TRACE", "CONNECT");
+        registry.addMapping("/**")
+        .allowedOrigins("http://localhost:8080")
+        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD", "TRACE", "CONNECT");
     }
 }
